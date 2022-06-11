@@ -2,6 +2,40 @@ from django.test import TestCase
 from Home.models import Feedback, Person, Privacy
 from django.contrib.auth.models import User
 
+
+# Unit Views Testing done by Abubakar Siddique
+class TestViews(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_HomeView(self):
+        response = self.client.get(reverse('Home:HomeView'))
+        self.assertTemplateUsed(response, 'HomeTemplate.html')
+        self.assertEquals(response.status_code, HTTPStatus.OK)
+
+    def test_ContactView_GET(self):
+        response = self.client.get(reverse('Home:ContactView'))
+        self.assertTemplateUsed(response, 'ContactUs.html')
+        self.assertEquals(response.status_code, HTTPStatus.OK)
+
+    def test_AboutView(self):
+        response = self.client.get(reverse('Home:AboutView'))
+        self.assertTemplateUsed(response, 'AboutUs.html')
+        self.assertEquals(response.status_code, HTTPStatus.OK)
+
+    def test_SignInView(self):
+        response = self.client.get(reverse('Home:SignInView'))
+        self.assertTemplateUsed(response, 'SignIn.html')
+        self.assertEquals(response.status_code, HTTPStatus.OK)
+
+    def test_SignUpView(self):
+        response = self.client.get(reverse('Home:SignUpView'))
+        self.assertTemplateUsed(response, 'SignUp.html')
+        self.assertEquals(response.status_code, HTTPStatus.OK)
+
+
+
 class TestModels(TestCase):
     def test_Person(self):
         user = User.objects.create(username="django_test", email="django_test@abc.com", password="password12")
